@@ -7,38 +7,13 @@ pip install codereview-local
 codereview your_file.py
 ```
 
----
-
 ## How it works
 
 Most code review tools send your code to a remote API. This one runs entirely on your machine.
 
 It uses a RAG (Retrieval-Augmented Generation) pipeline to intelligently select the most relevant parts of your code before sending them to a local LLM for review. This means it scales to large codebases without hitting context window limits.
 
-```
-your code
-    │
-    ▼
-tree-sitter parses into functions/classes
-    │
-    ▼
-sentence-transformers converts chunks to vectors
-    │
-    ▼
-ChromaDB stores all vectors in memory
-    │
-    ▼
-semantic queries retrieve the most relevant chunks
-("security vulnerabilities", "missing error handling", ...)
-    │
-    ▼
-local LLM reviews only what matters
-    │
-    ▼
-actionable feedback printed to terminal
-```
-
----
+![Pipeline](assets/pipeline.png)
 
 ## Features
 
@@ -82,6 +57,30 @@ pip install -e .
 ```
 
 ---
+## Configuration
+
+Set these environment variables to avoid passing flags every time:
+
+```bash
+export CODEREVIEW_OLLAMA_URL=http://localhost:11434
+export CODEREVIEW_MODEL=qwen3-coder:latest
+```
+
+Add them to your `~/.bashrc` to make them permanent:
+
+```bash
+echo 'export CODEREVIEW_MODEL=qwen3-coder:latest' >> ~/.bashrc
+echo 'export CODEREVIEW_OLLAMA_URL=http://localhost:11434' >> ~/.bashrc
+source ~/.bashrc
+```
+
+You can still override them per run with flags:
+
+```bash
+codereview file.py --model deepseek-coder:6.7b
+codereview file.py --ollama-url http://192.168.1.5:11434
+```
+
 
 ## Usage
 
