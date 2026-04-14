@@ -1,12 +1,24 @@
 import os
+import sys
 import torch
+import logging
+import contextlib
+
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["HF_HUB_DISABLE_IMPLICIT_TOKEN"] = "1"
+os.environ["TRANSFORMERS_VERBOSITY"] = "error"
+os.environ["TOKENIZERS_VERBOSITY"] = "error"
+
+logging.getLogger("sentence_transformers").setLevel(logging.ERROR)
+logging.getLogger("transformers").setLevel(logging.ERROR)
 
 from sentence_transformers import SentenceTransformer
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-model = SentenceTransformer("all-MiniLM-L6-v2", device=device)
+
+with open(os.devnull, "w") as devnull:
+    with contextlib.redirect_stderr(devnull):
+        model = SentenceTransformer("all-MiniLM-L6-v2", device=device)
 
 def embed_chunks(chunks: list[dict]) -> list[dict]:
     """Add embeddings to each chunk."""
