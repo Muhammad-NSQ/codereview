@@ -1,5 +1,9 @@
 # codereview
 
+[![PyPI version](https://badge.fury.io/py/codereview-local.svg)](https://badge.fury.io/py/codereview-local)
+[![Downloads](https://pepy.tech/badge/codereview-local)](https://pepy.tech/project/codereview-local)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A local, privacy-first code review CLI tool powered by RAG and a local LLM. No API keys. No data leaves your machine.
 
 ```bash
