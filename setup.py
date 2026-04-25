@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="codereview-local",
-    version="0.1.3",
+    version="0.1.4",
     description="Local RAG-based code review CLI. No API keys. Runs fully on your machine.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
